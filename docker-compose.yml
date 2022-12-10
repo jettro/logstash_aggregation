@@ -1,0 +1,19 @@
+version: '3.6'
+services:
+  logstash:
+    image: docker.elastic.co/logstash/logstash:${STACK_VERSION}
+    container_name: logstash
+    hostname: logstash
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: ./logstash_files
+        target: /logstash_dir
+    command: logstash -f /logstash_dir/logstash.conf -w 1 --config.reload.automatic
+    ports:
+      - '9600:9600'
+      - '8080:8080'
+    environment:
+      - LS_JAVA_OPTS=-Xmx256m -Xms256m
+      - XPACK_MONITORING_ENABLED=false
+      - XPACK_MANAGEMENT_ENABLED=false
