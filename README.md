@@ -38,7 +38,7 @@ $ ./send_step1.sh
 ### Strip what we do not need
 For simplicity, and as we do not need a lot of the meta-data, we remove the fields that are not important to us. You can use the _mutate_ filter to do that. Copy the content from _step1_input_output_mutate.conf_ to the runtime configuration. On save, watch the logs, as it will reload the pipeline. WHhen finished, send the data again using the _send_step1.sh_ script, notice the differences.
 
-## Step 2: Introduce the aggregate filter and initialize create / update / finish
+## Step 2: Use aggregate filter to combine events
 In the next step we add the aggregate filter, we use the action of the event to separate three different actions:
 * start_session
 * visit_url
@@ -78,19 +78,19 @@ $ ./send_step3.sh
 Wait for 10-20 seconds and a new event should appear with the values from the map as well as the added data in their.
 
 ```
-logstash  | {
-logstash  |          "user_id" => "111111",
-logstash  |         "@version" => "1",
-logstash  |     "visited_urls" => [
-logstash  |         [0] "https://luminis.eu",
-logstash  |         [1] "https://luminis.eu/blogs"
-logstash  |     ],
-logstash  |          "message" => "The user left or is in a very long session.",
-logstash  |       "@timestamp" => 2022-12-10T12:25:32.930411Z,
-logstash  |             "tags" => [
-logstash  |         [0] "_aggregatetimeout"
-logstash  |     ]
-logstash  | }
+{
+         "user_id" => "111111",
+        "@version" => "1",
+    "visited_urls" => [
+        [0] "https://luminis.eu",
+        [1] "https://luminis.eu/blogs"
+    ],
+         "message" => "The user left or is in a very long session.",
+      "@timestamp" => 2022-12-10T12:25:32.930411Z,
+            "tags" => [
+        [0] "_aggregatetimeout"
+    ]
+}
 ```
 
 # Concluding
