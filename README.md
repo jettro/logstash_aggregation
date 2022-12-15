@@ -95,3 +95,6 @@ Wait for 10-20 seconds and a new event should appear with the values from the ma
 
 # Concluding
 Hope this repository can help you start exeprimenting with the aggregate filter in logstash.
+
+Check the blog post for a bit mote insights:
+https://jettro.dev/example-logstash-aggregate-filter-9467c06cd4c
